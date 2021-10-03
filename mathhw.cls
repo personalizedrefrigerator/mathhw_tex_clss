@@ -8,7 +8,7 @@
 
 % Auxiliary Lua
 \begin{luacode*}
-    lib = require('~/Documents/Utils/tex/libtex.lua')
+    lib = require('libtex.lua')
 \end{luacode*}
 
 \RequirePackage{graphicx}
