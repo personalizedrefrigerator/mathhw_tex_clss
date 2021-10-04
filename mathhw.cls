@@ -81,22 +81,27 @@
 \def\evl#1{\luaexec{ tex.sprint(#1) }}
 
 % Math commands
-\def\E{\mathbb{E}}
-\def\P{\mathbb{P}}
-\def\Var{\textsf{Var}}
+\newcommand\bE{\mathbb{E}}
+\newcommand\bP{\mathbb{P}}
+\newcommand\bR{\mathbb{R}}
+
+\newcommand\norm[1]{ \left|\left| #1 \right|\right| }
+
+\newcommand\Var{\textsf{Var}}
 \newcommand\Normal{\mathcal{N}}
 \newcommand\Poisson{\textsf{Poi}}
 \newcommand\Binomial{\textsf{Bin}}
 \newcommand\Geometric{\textsf{Geom}}
 \newcommand\lIff{\Longleftrightarrow}
 \newcommand\sIff{\Leftrightarrow}
+
 \def\l{\left}
 \def\r{\right}
 \newcommand\justf[1]{\l[\begin{minipage}{0.26\linewidth}\small\tt #1 \end{minipage}\r]}
 \newcommand\difftl[1]{\textrm{d#1}}
 \newcommand\mean[1]{\overline{#1}}
-\def\undefed{\texttt{\color{lightgreen} undefined }}
-\def\thetaH{\hat{\theta}}
+\newcommand\undefed{\texttt{\color{lightgreen} undefined }}
+\newcommand\thetaH{\hat{\theta}}
 
 \def\flintg{\int_{-\infty}^{\infty}}
 \def\hintg{\int_{0}^{\infty}}
@@ -112,12 +117,13 @@
 
 % Shortcut commands
 \newcommand\nocalc{\textbf{\color{red}Do not use a calculator, except to check your work.}}
+\newcommand\hint[1]{{\tt\color{gray}\everymath=\expandafter{\the\everymath\color{purple}} [Hint:] \color{gray}\emph{#1}}}
 
 % Formatting commands
 \newcommand\Th{\textsuperscript{th} }
 
 
-%\newgeometry{vmargin={1mm,2mm}, hmargin={2mm,2mm}}
+\newgeometry{vmargin={15mm,2mm}, hmargin={3mm,15mm}}
 
 % Example usage:
 % \begin{document}
