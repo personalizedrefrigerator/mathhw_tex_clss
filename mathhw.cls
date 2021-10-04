@@ -118,6 +118,7 @@
 % Shortcut commands
 \newcommand\nocalc{\textbf{\color{red}Do not use a calculator, except to check your work.}}
 \newcommand\hint[1]{{\tt\color{gray}\everymath=\expandafter{\the\everymath\color{purple}} [Hint:] \color{gray}\emph{#1}}}
+\newcommand\TODO[1]{{\tt\color{red} // TODO: #1}}
 
 % Formatting commands
 \newcommand\Th{\textsuperscript{th} }
