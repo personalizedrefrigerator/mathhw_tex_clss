@@ -71,7 +71,17 @@
 }
 \newenvironment{interlude}[1]{%
     \begin{mdframed}[style=interlude,frametitle={#1}]%
+    \begin{minipage}{\linewidth}
+    \setlength\parindent{0.5cm}
+    \color{black}
+    \everymath=\expandafter{\the\everymath\color{black}}
+    \everydisplay=\expandafter{\the\everydisplay\color{black}}
+    \newcommand\beginproof{
+  {\setlength\parindent{0pt}
+  \textbf{PROOF:}
+  }}
 }{%
+    \end{minipage}
     \end{mdframed}
 }
 
@@ -81,10 +91,13 @@
 \def\evl#1{\luaexec{ tex.sprint(#1) }}
 
 % Math commands
-\newcommand\bE{\mathbb{E}}
-\newcommand\bP{\mathbb{P}}
-\newcommand\bR{\mathbb{R}}
+\newcommand\bE{\mathbb{E}} %
+\newcommand\bP{\mathbb{P}} % Primes (or probability of)
+\newcommand\bQ{\mathbb{Q}} % Rationals
+\newcommand\bR{\mathbb{R}} % Reals
+\newcommand\bZ{\mathbb{Z}} % Integers
 
+\newcommand\proj[2]{\textsf{proj}_{#1}{#2}}
 \newcommand\norm[1]{ \left|\left| #1 \right|\right| }
 
 \newcommand\Var{\textsf{Var}}
@@ -95,8 +108,7 @@
 \newcommand\lIff{\Longleftrightarrow}
 \newcommand\sIff{\Leftrightarrow}
 
-\def\l{\left}
-\def\r{\right}
+\def\abs#1{\left|#1\right|}
 \newcommand\justf[1]{\l[\begin{minipage}{0.26\linewidth}\small\tt #1 \end{minipage}\r]}
 \newcommand\difftl[1]{\textrm{d#1}}
 \newcommand\mean[1]{\overline{#1}}
@@ -122,9 +134,6 @@
 
 % Formatting commands
 \newcommand\Th{\textsuperscript{th} }
-
-
-\newgeometry{vmargin={15mm,2mm}, hmargin={3mm,15mm}}
 
 % Example usage:
 % \begin{document}
