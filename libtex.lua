@@ -60,6 +60,15 @@ math.round = function(number)
     return math.floor(number + 0.5)
 end
 
+function exportMathLib()
+    -- See https://stackoverflow.com/a/62932954
+    for k,v in pairs(math) do
+        if not _G[k] then
+            _G[k] = v
+        end
+    end
+end
+
 function commaSep(number, roundTo)
     roundTo = roundTo or 0
     local lThanZero = number < 0
@@ -158,4 +167,4 @@ local simplified = function(numer, denom)
     tex.sprint(fract:simplify():str());
 end
 
-return { fract = makeFract, binomTwo = binomTwo, simplified=simplified, commaSep = commaSep };
+return { fract = makeFract, exportMathLib = exportMathLib, binomTwo = binomTwo, simplified=simplified, commaSep = commaSep };

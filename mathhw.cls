@@ -18,6 +18,7 @@
 \RequirePackage[framemethod=tikz]{mdframed} % See https://tools.ietf.org/doc/texlive-doc/latex/mdframed/mdframed.pdf
 \RequirePackage{fontspec}
 \RequirePackage{unicode-math}
+\RequirePackage{ifthen}
 \setmainfont{texgyrebonum}
 \setmathfont{Asana-Math}%XITSMath-Bold}%{Asana-Math}
 
@@ -89,6 +90,10 @@
 
 % Lua
 \def\evl#1{\luaexec{ tex.sprint(#1) }}
+\def\mathevl#1{\luaexec{ lib.exportMathLib(); tex.sprint(#1) }}
+
+% See https://tex.stackexchange.com/a/511817
+\newcommand\calc[2][]{\ifthenelse{\equal{#1}{}}{\mathevl{#2}}{\mathevl{round(#2*pow(10,#1))/pow(10,#1)}}}
 
 % Math commands
 \newcommand\bE{\mathbb{E}} %
