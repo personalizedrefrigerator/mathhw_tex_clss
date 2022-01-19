@@ -2,7 +2,7 @@
 
 % See https://tex.stackexchange.com/questions/1137/where-do-i-place-my-own-sty-or-cls-files-to-make-them-available-to-all-my-te for how to install
 
-\LoadClass[a5paper]{book}
+\LoadClass[a4paper, 12pt]{article}
 \RequirePackage{luacode}
 \RequirePackage{xcolor}
 
@@ -43,13 +43,13 @@
 \makeatletter
 \newenvironment{problem}[2]{
     \protect\pagebreak[4]
-    \setcounter{section}{-1}
-    \addtocounter{chapter}{1}
+    \setcounter{subsection}{-1}
+    \addtocounter{section}{1}
     \begingroup\color{lightgreen} \section{#2} \endgroup \nopagebreak
     \newenvironment{parts}{
       \begin{enumerate}[(a)]
         \let\latex@item\item
-        \renewcommand{\item}{\addtocounter{section}{1} \latex@item }%
+        \renewcommand{\item}{\addtocounter{subsection}{1} \latex@item }%
       }{\end{enumerate}}
 }{}
 
@@ -109,7 +109,7 @@
 \newcommand\sIff{\Leftrightarrow}
 
 \def\abs#1{\left|#1\right|}
-\newcommand\justf[1]{\l[\begin{minipage}{0.26\linewidth}\small\tt #1 \end{minipage}\r]}
+\newcommand\justf[1]{\left[ \begin{minipage}{0.2\linewidth}\begin{center}\small #1 \end{center}\end{minipage} \right]}
 \newcommand\difftl[1]{\textrm{d#1}}
 \newcommand\mean[1]{\overline{#1}}
 \newcommand\undefed{\texttt{\color{lightgreen} undefined }}
@@ -122,8 +122,8 @@
 % Styling
 
 % See https://tex.stackexchange.com/questions/5148/how-can-i-change-the-font-size-in-math-equations
-\everymath=\expandafter{\the\everymath\color{yellow}}
-\everydisplay=\expandafter{\the\everydisplay\color{yellow}}
+\everymath=\expandafter{\the\everymath\color{pink}}
+\everydisplay=\expandafter{\the\everydisplay\color{pink}}
 \color{white}
 \pagecolor{black}
 
