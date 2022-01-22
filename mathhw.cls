@@ -45,7 +45,8 @@
 \newenvironment{problem}[2]{
     \protect\pagebreak[4]
     \setcounter{subsection}{-1}
-    \addtocounter{section}{1}
+    \setcounter{section}{#1}
+    \addtocounter{section}{-1}
     \begingroup\color{lightgreen} \section{#2} \endgroup \nopagebreak
     \newenvironment{parts}{
       \begin{enumerate}[(a)]
