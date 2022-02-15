@@ -1,6 +1,9 @@
 -- For use with LuaLaTeX
 
-function makeFract(num, denom)
+local lib = {}
+
+function lib.makeFract(num, denom)
+    -- Numerator and denominator should be integers
     assert(math.abs(math.floor(num) - num) < 0.01);
     assert(math.abs(math.floor(denom) - denom) < 0.01);
 
@@ -60,7 +63,7 @@ math.round = function(number)
     return math.floor(number + 0.5)
 end
 
-function exportMathLib()
+function lib.exportMathLib()
     -- See https://stackoverflow.com/a/62932954
     for k,v in pairs(math) do
         if not _G[k] then
@@ -69,7 +72,44 @@ function exportMathLib()
     end
 end
 
-function commaSep(number, roundTo)
+function lib.colVec(values)
+    local result = {
+        plus = function(self, other)
+            local res = {}
+
+            for i,v in ipairs(self.vals) do
+                res[i] = self.vals[i] + other.vals[i]
+            end
+
+            return lib.colVec(res)
+        end,
+        str = function(self)
+            local res = "\\begin{pmatrix} "
+            local isFirst = true
+
+            for i,v in ipairs(self.vals) do
+                if not isFirst then
+                    res = res .. " \\\\ "
+                end
+
+                res = res .. tostring(v)
+                isFirst = false
+            end
+            res = res .. " \\end{pmatrix}"
+
+            return res
+        end,
+        vals = {},
+    };
+
+    for i,v in ipairs(values) do
+        result.vals[i] = v
+    end
+
+    return result
+end
+
+function lib.commaSep(number, roundTo)
     roundTo = roundTo or 0
     local lThanZero = number < 0
 
@@ -102,14 +142,14 @@ function commaSep(number, roundTo)
         result = '-' .. result
     end
 
-    print(result)
+    -- print(result)
 
     return result
 end
 
-function runTests()
+function lib.runTests()
     -- Fraction tests.
-    local f = makeFract(30, 60);
+    local f = lib.makeFract(30, 60);
     f:simplify();
     assert(f.num == 1);
     assert(f.denom == 2);
@@ -117,25 +157,27 @@ function runTests()
     f:plusEql(f);
     assert(f.num == 2 and f.denom == 2);
 
-    local f2 = makeFract(3, 4);
+    local f2 = lib.makeFract(3, 4);
     f:plusEql(f2);
     f:simplify();
     assert(f.num == 7 and f.denom == 4);
     assert(f:str() == "\\frac{7}{4}");
 
-    f:timesEql(makeFract(2, 3));
+    f:timesEql(lib.makeFract(2, 3));
     assert(f:str() == "\\frac{14}{12}");
 
-    assert(commaSep(123456789) == "123,456,789");
-    assert(commaSep(12) == "12");
-    assert(commaSep(1234) == "1,234");
-    assert(commaSep(-1000) == "-1,000");
-    assert(commaSep(1/3, 10) == "0.3");
+    assert(lib.commaSep(123456789) == "123,456,789");
+    assert(lib.commaSep(12) == "12");
+    assert(lib.commaSep(1234) == "1,234");
+    assert(lib.commaSep(-1000) == "-1,000");
+    assert(lib.commaSep(1/3, 10) == "0.3");
+
+    assert(lib.colVec({ 4, 2, 1}):str() == "\\begin{pmatrix} 4 \\\\ 2 \\\\ 1 \\end{pmatrix}")
 end
 
-runTests();
+lib.runTests();
 
-local binomTwo = function(a, b)
+function lib.binomTwo(a, b)
     local sprintFac = function(f, needsTail)
         if f > 1 then
             tex.sprint(f)
@@ -161,10 +203,12 @@ local binomTwo = function(a, b)
     tex.sprint("}");
 end
 
-local simplified = function(numer, denom)
+function lib.simplified(numer, denom)
     -- Prints a simplified version of numer over denom.
     local fract = makeFract(numer, denom);
     tex.sprint(fract:simplify():str());
 end
 
-return { fract = makeFract, exportMathLib = exportMathLib, binomTwo = binomTwo, simplified=simplified, commaSep = commaSep };
+lib.fract = lib.makeFract
+
+return lib

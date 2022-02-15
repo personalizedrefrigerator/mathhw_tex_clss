@@ -128,6 +128,10 @@
 \newcommand\bR{\mathbb{R}} % Reals
 \newcommand\bZ{\mathbb{Z}} % Integers
 
+% See https://stackoverflow.com/a/6056665/17055750
+\DeclareMathOperator*{\argmin}{\text{argmin}}
+\DeclareMathOperator*{\argmax}{\text{argmax}}
+
 \newcommand\proj[2]{\textsf{proj}_{#1}{#2}}
 \newcommand\norm[1]{ \left|\left| #1 \right|\right| }
 
