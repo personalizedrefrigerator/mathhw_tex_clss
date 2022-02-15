@@ -19,10 +19,14 @@
 \RequirePackage{fontspec}
 \RequirePackage{unicode-math}
 \RequirePackage{ifthen}
+\RequirePackage{listings}
+
 \setmainfont{texgyrebonum}
+\setmonofont{FreeMono Bold}
 \setmathfont{Asana-Math}%XITSMath-Bold}%{Asana-Math}
 
 \definecolor{lightgreen}{rgb}{0.3,0.9,0.4}
+\definecolor{lightgray}{rgb}{0.8,0.8,0.8}
 
 \mdfdefinestyle{definition}{%
     linecolor=gray,linewidth=1pt,
@@ -33,7 +37,28 @@
     linecolor=gray,linewidth=1pt,topline=false,bottomline=false
 }
 
-\RequirePackage{dirtytalk}
+% See https://www.overleaf.com/learn/latex/Code_listing
+\lstdefinestyle{darkmode}{
+    backgroundcolor=\color{black},
+    commentstyle=\color{lightgreen},
+    keywordstyle=\color{pink},
+    stringstyle=\color{orange},
+    basicstyle=\ttfamily\footnotesize\color{white},
+    breakatwhitespace=false,
+    breaklines=true,
+    numberstyle=\tiny\color{lightgray},
+    numbers=left,
+    numbersep=5pt,
+    tabsize=2,
+    keepspaces=true,
+    showspaces=true,
+    showstringspaces=false,
+    showtabs=true,
+    captionpos=b
+}
+
+\lstset{style=darkmode}
+
 \RequirePackage{geometry}
 \RequirePackage{multicol}
 \RequirePackage[shortlabels]{enumitem}
@@ -136,7 +161,7 @@
 % Shortcut commands
 \newcommand\nocalc{\textbf{\color{red}Do not use a calculator, except to check your work.}}
 \newcommand\hint[1]{{\tt\color{gray}\everymath=\expandafter{\the\everymath\color{purple}} [Hint:] \color{gray}\emph{#1}}}
-\newcommand\TODO[1]{{\tt\color{red} // TODO: #1}}
+\newcommand\TODO[1]{\text{\tt\color{red} // TODO: #1}}
 
 % Formatting commands
 \newcommand\Th{\textsuperscript{th} }
