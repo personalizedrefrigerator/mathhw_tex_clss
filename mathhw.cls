@@ -3,6 +3,22 @@
 % See https://tex.stackexchange.com/questions/1137/where-do-i-place-my-own-sty-or-cls-files-to-make-them-available-to-all-my-te for how to install
 
 \LoadClass[a4paper, 12pt]{article}
+
+\def\optoff{off}
+\def\opton{on}
+
+% Arguments
+\def\lighttheme{off}
+
+% See https://tex.stackexchange.com/a/250163
+% and https://stackoverflow.com/a/55002538
+\DeclareOption{lighttheme}{
+    \def\lighttheme{on}%
+}
+\ProcessOptions
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \RequirePackage{luacode}
 \RequirePackage{xcolor}
 
@@ -25,8 +41,16 @@
 \setmonofont{FreeMono Bold}
 \setmathfont{Asana-Math}%XITSMath-Bold}%{Asana-Math}
 
-\definecolor{lightgreen}{rgb}{0.3,0.9,0.4}
+\ifx\lighttheme\optoff
+\definecolor{headercolor}{rgb}{0.3,0.9,0.4}
+\definecolor{mathcolor}{rgb}{0.9,0.7,0.7}
+\else
+\definecolor{headercolor}{rgb}{0.5,0.1,0.5}
+\definecolor{mathcolor}{rgb}{0.1,0.3,0.4}
+\fi
+
 \definecolor{lightgray}{rgb}{0.8,0.8,0.8}
+\definecolor{lightgreen}{rgb}{0.3,0.9,0.4}
 
 \mdfdefinestyle{definition}{%
     linecolor=gray,linewidth=1pt,
@@ -56,8 +80,29 @@
     showtabs=true,
     captionpos=b
 }
+\lstdefinestyle{lightmode}{
+    commentstyle=\color{orange},
+    keywordstyle=\color{blue},
+    stringstyle=\color{red},
+    basicstyle=\ttfamily\footnotesize\color{black},
+    breakatwhitespace=false,
+    breaklines=true,
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    numbersep=5pt,
+    tabsize=2,
+    keepspaces=true,
+    showspaces=true,
+    showstringspaces=false,
+    showtabs=true,
+    captionpos=b
+}
 
+\ifx\lighttheme\opton
+\lstset{style=lightmode}
+\else
 \lstset{style=darkmode}
+\fi
 
 \RequirePackage{geometry}
 \RequirePackage{multicol}
@@ -72,7 +117,7 @@
     \setcounter{subsection}{-1}
     \setcounter{section}{#1}
     \addtocounter{section}{-1}
-    \begingroup\color{lightgreen} \section{#2} \endgroup \nopagebreak
+    \begingroup\color{headercolor} \section{#2} \endgroup \nopagebreak
     \newenvironment{parts}{
       \begin{enumerate}[(a)]
         \let\latex@item\item
@@ -147,7 +192,7 @@
 \newcommand\justf[1]{\left[ \begin{minipage}{0.2\linewidth}\begin{center}\small #1 \end{center}\end{minipage} \right]}
 \newcommand\difftl[1]{\textrm{d#1}}
 \newcommand\mean[1]{\overline{#1}}
-\newcommand\undefed{\texttt{\color{lightgreen} undefined }}
+\newcommand\undefed{\texttt{\color{headercolor} undefined }}
 \newcommand\thetaH{\hat{\theta}}
 \newcommand\iprod[1]{\left< #1 \right>}
 
@@ -158,10 +203,13 @@
 % Styling
 
 % See https://tex.stackexchange.com/questions/5148/how-can-i-change-the-font-size-in-math-equations
-\everymath=\expandafter{\the\everymath\color{pink}}
-\everydisplay=\expandafter{\the\everydisplay\color{pink}}
+\everymath=\expandafter{\the\everymath\color{mathcolor}}
+\everydisplay=\expandafter{\the\everydisplay\color{mathcolor}}
+
+\ifx\lighttheme\optoff
 \color{white}
 \pagecolor{black}
+\fi
 
 % Shortcut commands
 \newcommand\nocalc{\textbf{\color{red}Do not use a calculator, except to check your work.}}
