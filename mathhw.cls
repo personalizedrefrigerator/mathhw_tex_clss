@@ -149,6 +149,7 @@
 \newcommand\mean[1]{\overline{#1}}
 \newcommand\undefed{\texttt{\color{lightgreen} undefined }}
 \newcommand\thetaH{\hat{\theta}}
+\newcommand\iprod[1]{\left< #1 \right>}
 
 \def\flintg{\int_{-\infty}^{\infty}}
 \def\hintg{\int_{0}^{\infty}}
